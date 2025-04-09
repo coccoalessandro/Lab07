@@ -24,4 +24,8 @@ class MeteoDao():
             cnx.close()
         return result
 
+if __name__ == "__main__":
+    myMeteo = MeteoDao()
+    print(myMeteo.get_all_situazioni())
+
 

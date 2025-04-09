@@ -14,9 +14,30 @@ class Controller:
         self._mese = 0
 
     def handle_umidita_media(self, e):
-        pass
+
+        self._view.lst_result.controls.clear()
+
+        myModel = Model()
+
+        mediaGenova = []
+        mediaTorino = []
+        mediaMilano = []
+
+        for situazione in myModel.getAllSituazioni():
+            if situazione.data.month == int(self._view.dd_mese.value):
+                if situazione.localita == "Genova":
+                    mediaGenova.append(int(situazione.umidita))
+                elif situazione.localita == "Torino":
+                    mediaTorino.append(int(situazione.umidita))
+                else:
+                    mediaMilano.append(int(situazione.umidita))
 
 
+        self._view.lst_result.controls.append(ft.Text("L'umidità media nel mese selezionato è:"))
+        self._view.lst_result.controls.append(ft.Text(f"Genova: {round(sum(mediaGenova)/len(mediaGenova), 4)}"))
+        self._view.lst_result.controls.append(ft.Text(f"Milano: {round(sum(mediaMilano) / len(mediaMilano), 4)}"))
+        self._view.lst_result.controls.append(ft.Text(f"Torino: {round(sum(mediaTorino) / len(mediaTorino), 4)}"))
+        self._view.update_page()
 
     def handle_sequenza(self, e):
         pass
