@@ -1,7 +1,7 @@
 import flet as ft
 
 from UI.view import View
-from model.model import Model
+from model.modello import Model
 
 
 class Controller:
@@ -12,6 +12,9 @@ class Controller:
         self._model = model
         # other attributes
         self._mese = 0
+        self.listaSoluzioni = []
+        self.ottima = []
+        self.costoOttimo = 10000
 
     def handle_umidita_media(self, e):
 
@@ -40,6 +43,14 @@ class Controller:
         self._view.update_page()
 
     def handle_sequenza(self, e):
+        mymodel = Model()
+        self._view.lst_result.controls.append(ft.Text(f'Costo: {mymodel.calcola_sequenza(self._view.dd_mese.value)[1]}'))
+        for situazione in mymodel.calcola_sequenza(self._view.dd_mese.value)[0]:
+            self._view.lst_result.controls.append(ft.Text(str(situazione)))
+
+        self._view.update_page()
+
+    def ricorsione(self, parziale, rimanenti):
         pass
 
     def read_mese(self, e):
